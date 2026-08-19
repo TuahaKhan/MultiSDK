@@ -1,0 +1,5 @@
+<resources>
+    <!-- Prefixed to avoid colliding with host app resources after merging. -->
+    <string name="ott_sdk_screen_title">OTT SDK</string>
+    <string name="ott_sdk_opened">OTT SDK Opened</string>
+</resources>

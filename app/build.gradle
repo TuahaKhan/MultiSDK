@@ -18,6 +18,16 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Account A credentials are injected into the merged AndroidManifest as
+        // CleverTap's standard meta-data keys, which is what configures the
+        // CleverTap DEFAULT instance. Values come from gradle.properties
+        // placeholders -- no real credentials are committed.
+        manifestPlaceholders = [
+                clevertapAccountIdA: (project.findProperty('CLEVERTAP_ACCOUNT_A_ID') ?: '').toString(),
+                clevertapTokenA    : (project.findProperty('CLEVERTAP_ACCOUNT_A_TOKEN') ?: '').toString(),
+                clevertapRegionA   : (project.findProperty('CLEVERTAP_ACCOUNT_A_REGION') ?: '').toString()
+        ]
     }
 
     buildTypes {
@@ -33,6 +43,17 @@ android {
 }
 
 dependencies {
+    // The OTT component is consumed as a local Android library module, exactly as
+    // a host app would consume a vendor AAR. It is NOT a separate application.
+    implementation project(':ott-sdk')
+
+    // The host app also depends on CleverTap directly, since it runs its own
+    // Account A integration. :ott-sdk exposes the same dependency via `api`, so
+    // Gradle sees two paths to the same module and resolves a SINGLE copy.
+    // Both declarations resolve through libs.versions.toml, so they cannot drift.
+    // See README "Gradle dependency resolution".
+    implementation libs.clevertap.android.sdk
+
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity

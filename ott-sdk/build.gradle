@@ -1,0 +1,69 @@
+/*
+ * OTT SDK -- an Android LIBRARY module (AAR), not an application.
+ *
+ * Deliberately uses `com.android.library`:
+ *   - no applicationId
+ *   - no launcher activity
+ *   - no separate APK / process
+ * It is consumed by :app and runs inside the host application's process.
+ */
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+android {
+    namespace 'com.example.ottsdk'
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
+
+    defaultConfig {
+        // NOTE: no applicationId and no targetSdk here -- those are properties of
+        // the *application* that consumes this library, not of the library itself.
+        minSdk 24
+
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // The OTT SDK owns its OWN CleverTap credentials (Account B). A real
+        // vendor SDK would not ask the host app for them, and the host app must
+        // never see or manage them. Values come from gradle.properties
+        // placeholders -- no real credentials are committed.
+        buildConfigField "String", "CLEVERTAP_ACCOUNT_B_ID",
+                "\"${project.findProperty('CLEVERTAP_ACCOUNT_B_ID') ?: ''}\""
+        buildConfigField "String", "CLEVERTAP_ACCOUNT_B_TOKEN",
+                "\"${project.findProperty('CLEVERTAP_ACCOUNT_B_TOKEN') ?: ''}\""
+        buildConfigField "String", "CLEVERTAP_ACCOUNT_B_REGION",
+                "\"${project.findProperty('CLEVERTAP_ACCOUNT_B_REGION') ?: ''}\""
+    }
+
+    buildFeatures {
+        // Needed for the buildConfigField entries above.
+        buildConfig = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    // `api` (not `implementation`) so the CleverTap SDK is part of the OTT SDK's
+    // exposed dependency graph:  :app -> :ott-sdk -> clevertap-android-sdk
+    // This models a real SDK that brings CleverTap along with it, and it means
+    // the host app would still compile against CleverTap even if it did not
+    // declare the dependency itself. See README "Gradle dependency resolution".
+    api libs.clevertap.android.sdk
+
+    // OttActivity extends AppCompatActivity, so the library declares appcompat
+    // explicitly rather than relying on CleverTap pulling it in transitively.
+    implementation libs.appcompat
+}

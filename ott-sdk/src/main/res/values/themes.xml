@@ -1,0 +1,8 @@
+<resources>
+    <!--
+      The OTT SDK declares its own theme so its screen does not depend on the
+      host app defining any particular theme. OttActivity extends
+      AppCompatActivity, so this must be an AppCompat-derived theme.
+    -->
+    <style name="Theme.OttSdk" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>

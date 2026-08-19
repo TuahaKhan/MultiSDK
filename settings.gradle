@@ -24,3 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "MultiSDK"
 include ':app'
+// The OTT component is an Android LIBRARY module (com.android.library), not an
+// application module. It ships no APK and no applicationId of its own; it runs
+// inside the host app's process. See README section "Project architecture".
+include ':ott-sdk'
