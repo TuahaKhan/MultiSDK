@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MultiSDK</string>
+    <string name="title_isolation_demo">CleverTap Isolation Demo</string>
 </resources>

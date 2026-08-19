@@ -1,19 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- Deliberately plain. No images, no icons, no animations, no navigation. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="@string/title_isolation_demo"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_host_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fire Host Event (Account A)" />
+
+        <Button
+            android:id="@+id/btn_open_ott"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open OTT SDK" />
+
+        <Button
+            android:id="@+id/btn_ott_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fire OTT Event (Account B)" />
+
+        <Button
+            android:id="@+id/btn_ott_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fire OTT_PLAY (Account B)" />
+
+        <Button
+            android:id="@+id/btn_ott_subscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fire OTT_SUBSCRIPTION (Account B)" />
+
+        <Button
+            android:id="@+id/btn_diagnostics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Instance Diagnostics" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:textSize="11sp"
+            android:typeface="monospace" />
+
+    </LinearLayout>
+
+</ScrollView>

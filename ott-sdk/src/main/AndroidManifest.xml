@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  The OTT SDK's OWN manifest.
+
+  It declares only what the SDK itself needs: its single screen. Android's
+  normal manifest merger folds this into the host app's manifest at build time.
+  Nothing here is manually copied into the host manifest.
+
+  Note what is deliberately ABSENT:
+
+    * No "application" element attributes (no icon/label/theme/name). The SDK
+      must not fight the host app for them, and must not try to install its own
+      Application class.
+
+    * No CleverTap components. The CleverTap AAR contributes its own components
+      (InAppNotificationActivity, CTInboxActivity, CTPushNotificationReceiver,
+      CTFirebaseMessagingReceiver, CleverTapFileProvider) exactly once, via its
+      own manifest, no matter how many modules depend on it.
+
+    * No CLEVERTAP_ACCOUNT_ID / CLEVERTAP_TOKEN meta-data. Those manifest keys
+      configure the DEFAULT instance, which belongs to the host app (Account A).
+      If the OTT SDK declared them it would either collide with the host's
+      values or silently hijack Account A. Account B is configured entirely in
+      code via CleverTapInstanceConfig. This is the single most important
+      manifest decision in this project.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+
+        <!--
+          The OTT "experience". Not exported: only the host app process can
+          launch it, and it is reached through OttSdk.open().
+        -->
+        <activity
+            android:name="com.example.ottsdk.OttActivity"
+            android:exported="false"
+            android:label="@string/ott_sdk_screen_title"
+            android:theme="@style/Theme.OttSdk" />
+
+    </application>
+
+</manifest>

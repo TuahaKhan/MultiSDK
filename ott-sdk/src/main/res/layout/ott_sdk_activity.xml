@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Deliberately plain. No images, no icons, no animations. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ott_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:text="@string/ott_sdk_opened"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="Events fired here go to CleverTap Account B only."
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/ott_btn_content_viewed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fire OTT_CONTENT_VIEWED" />
+
+    <Button
+        android:id="@+id/ott_btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fire OTT_PLAY" />
+
+    <Button
+        android:id="@+id/ott_btn_subscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fire OTT_SUBSCRIPTION" />
+
+    <TextView
+        android:id="@+id/ott_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:textSize="11sp"
+        android:typeface="monospace" />
+
+</LinearLayout>
